@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URL Shortener</title>
+    <link rel="stylesheet" href="/css/main.css" />
+</head>
+
+<body class="bg-gray-100 min-h-screen flex items-center justify-center">
+
+    <div class="w-full max-w-md p-6 bg-white rounded-2xl shadow-lg">
+
+        <!-- Alert -->
+        <div id="copyAlert" class="alert alert-success hidden flex items-center gap-2 mb-4">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 shrink-0 stroke-current" fill="none"
+                viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <span>Copied to clipboard!</span>
+        </div>
+
+        <!-- Header -->
+        <h1 class="text-3xl font-bold text-center mb-6">URL Shortener</h1>
+
+        <!-- Input form -->
+        <form action="/shorten" method="POST" class="flex gap-2 mb-4">
+            <input type="text" class="input input-bordered flex-1" placeholder="Type your link here" name="txtLink"/>
+            <button class="btn btn-primary">Shorten</button>
+        </form>
+
+        <!-- Shortened URL -->
+        <% if (fullUrl) { %>
+            <div class="flex gap-2">
+                <input type="text" class="input input-bordered flex-1" value="<%= fullUrl %>" readonly/>
+                <button type="button" class="btn btn-success" id="copyBtn">Copy</button>
+            </div>
+        <% } %>
+    </div>
+
+    <script>
+        document.getElementById("copyBtn")?.addEventListener("click", async () => {
+            const textToCopy = document.querySelector('input[readonly]').value;
+            try {
+                await navigator.clipboard.writeText(textToCopy);
+
+                // Show alert
+                const alertBox = document.getElementById("copyAlert");
+                alertBox.classList.remove("hidden");
+                
+                // Hide after 3 seconds
+                setTimeout(() => {
+                    alertBox.classList.add("hidden");
+                }, 3000);
+
+            } catch (err) {
+                console.error("Failed to copy", err);
+            }
+        });
+    </script>
+
+</body>
+
+</html>
