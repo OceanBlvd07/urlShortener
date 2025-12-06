@@ -47,12 +47,14 @@ Live demo: [https://shrturl01.vercel.app](https://shrturl01.vercel.app)
 
 ## 🔹 Installation & Usage
 
-1. **Clone the repository:** ```bash
+1. **Clone the repository:**
+   ```
     git clone [https://github.com/YOUR_USERNAME/urlShortener.git](https://github.com/YOUR_USERNAME/urlShortener.git)
     cd urlShortener
     ```
 
-2. **Install dependencies:** ```bash
+2. **Install dependencies:**
+   ```
     npm install
     ```
 
@@ -63,15 +65,17 @@ Live demo: [https://shrturl01.vercel.app](https://shrturl01.vercel.app)
     ```
     *(Note: The `SESSION_SECRET` can be any long random string used to sign the session ID cookie)*
 
-4. **Start the server:** ```bash
+4. **Start the server:**
+   ```
     npm start
     ```
     *Or for development:*
-    ```bash
+    ```
     npx nodemon server.js
     ```
 
-5. **Open your browser and go to:** ```
+5. **Open your browser and go to:**
+   ```
     http://localhost:8080
     ```
 
