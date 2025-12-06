@@ -8,36 +8,46 @@
     <link rel="stylesheet" href="/css/main.css" />
 </head>
 
-<body class="bg-gray-100 min-h-screen flex items-center justify-center">
-
-    <div class="w-full max-w-md p-6 bg-white rounded-2xl shadow-lg">
-
-        <!-- Alert -->
-        <div id="copyAlert" class="alert alert-success hidden flex items-center gap-2 mb-4">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 shrink-0 stroke-current" fill="none"
-                viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-            <span>Copied to clipboard!</span>
+<body class="bg-gray-100 min-h-screen flex flex-col">
+    <div class="navbar bg-base-100 shadow-sm">
+        <div class="flex-1">
+            <a class="btn btn-ghost text-xl">URL Shortener</a>
         </div>
-
-        <!-- Header -->
-        <h1 class="text-3xl font-bold text-center mb-6">URL Shortener</h1>
-
-        <!-- Input form -->
-        <form action="/shorten" method="POST" class="flex gap-2 mb-4">
-            <input type="text" class="input input-bordered flex-1" placeholder="Type your link here" name="txtLink"/>
-            <button class="btn btn-primary">Shorten</button>
-        </form>
-
-        <!-- Shortened URL -->
-        <% if (fullUrl) { %>
-            <div class="flex gap-2">
-                <input type="text" class="input input-bordered flex-1" value="<%= fullUrl %>" readonly/>
-                <button type="button" class="btn btn-success" id="copyBtn">Copy</button>
+        <div class="flex-none">
+            <ul class="menu menu-horizontal px-1">
+                <li><a class="btn btn-md btn-primary" href="/0/login">Log in</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="flex-1 flex items-center justify-center">
+        <div class="w-full max-w-md p-6 bg-white rounded-2xl shadow-lg">
+            <!-- Alert -->
+            <div id="copyAlert" class="alert alert-success hidden flex items-center gap-2 mb-4">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 shrink-0 stroke-current" fill="none"
+                    viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <span>Copied to clipboard!</span>
             </div>
-        <% } %>
+    
+            <!-- Header -->
+            <h1 class="text-3xl font-bold text-center mb-6">URL Shortener</h1>
+    
+            <!-- Input form -->
+            <form action="/shorten" method="POST" class="flex gap-2 mb-4">
+                <input type="text" class="input input-bordered flex-1" placeholder="Type your link here" name="txtLink"/>
+                <button class="btn btn-primary">Shorten</button>
+            </form>
+    
+            <!-- Shortened URL -->
+            <% if (fullUrl) { %>
+                <div class="flex gap-2">
+                    <input type="text" class="input input-bordered flex-1" value="<%= fullUrl %>" readonly/>
+                    <button type="button" class="btn btn-success" id="copyBtn">Copy</button>
+                </div>
+            <% } %>
+        </div>
     </div>
 
     <script>

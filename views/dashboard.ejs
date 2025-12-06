@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="/css/main.css" />
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col">
+    
+    <div class="navbar bg-base-100 shadow-sm">
+        <div class="flex-1">
+            <span class="text-xl font-bold">URL Shortener</span>
+        </div>
+        <div class="flex-none">
+            <span class="mr-4">Hello, <%= userEmail %></span>
+            <a href="/0/logout" class="btn btn-ghost btn-sm">Log Out</a>
+        </div>
+    </div>
+
+    <div class="flex-1 flex items-center justify-center">
+        <div class="w-full max-w-md p-6 bg-white rounded-2xl shadow-lg">
+            <h1 class="text-3xl font-bold text-center mb-6">Dashboard</h1>
+            <!-- Form -->
+            <form action="/shorten" method="POST" class="flex gap-2 mb-4">
+                <input type="text" class="input input-bordered flex-1" placeholder="Type your link here" name="txtLink" required/>
+                <button class="btn btn-primary">Shorten</button>
+            </form>
+
+            <!-- User URLs -->
+            <h2 class="text-lg font-bold mb-2">Your links:</h2>
+            <ul class="menu bg-base-100 rounded-box">
+                <% urls.slice().reverse().forEach(url => { %>
+                    <li>
+                        <div class="flex justify-between">
+                            <a href="<%= host + '/' + url.newLink %>" target="_blank" class="flex justify-between items-center">
+                                <span><%= host + '/' + url.newLink %></span>
+                            </a>
+                            <a class="btn btn-error btn-sm" href="/delete/link/<%=url._id%>">Delete</a>
+                        </div>
+                    </li>
+                <% }) %>
+            </ul>
+
+
+
+
+        </div>
+    </div>
+
+</body>
+</html>
