@@ -73,4 +73,10 @@ Live demo: [https://shrturl01.vercel.app](https://shrturl01.vercel.app)
 ---
 
 ## 🔹 Project Structure
-
+urlShortener/
+├─ public/ # Static files (CSS, JS)
+├─ views/ # EJS templates
+├─ server.js # Main Express server
+├─ package.json
+├─ package-lock.json
+└─ .env # Environment variables
