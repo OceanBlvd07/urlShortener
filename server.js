@@ -140,8 +140,6 @@ app.get("/:code", async (req, res) => {
         `
         return res.status(404).send(errMsg)
     }
-    currUrl.clicks++
-    await currUrl.save()
 
     return res.redirect(301, currUrl.oldLink)
 })
