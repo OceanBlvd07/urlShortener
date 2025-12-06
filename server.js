@@ -15,7 +15,7 @@ require("dotenv").config()
 
 const session = require('express-session')
 app.use(session({
-   secret: "the quick brown fox jumped over the lazy dog 1234567890",  // random string, used for configuring the session
+   secret: process.env.SESSION_SECRET,  // random string, used for configuring the session
    resave: false,
    saveUninitialized: true
 }))
@@ -58,9 +58,25 @@ app.get("/", (req, res) => {
 });
 app.post("/shorten", async (req, res) => {
     const original = req.body.txtLink
+    try {
+        const validUrl = new URL(original); 
+        
+        if (validUrl.protocol !== "http:" && validUrl.protocol !== "https:") {
+             throw new Error("Invalid protocol");
+        }
+    } catch (err) {
+        if (req.session.userInfo) {
+            req.session.error = "Please provide a valid URL (e.g., https://google.com)"
+            return res.redirect("/dashboard")
+        }
+        return res.render("home.ejs", { 
+            fullUrl: null, 
+            error: "Please provide a valid URL (e.g., https://google.com)" 
+        });
+    }
     const shortLink = generateShortId()
 
-    const data = { oldLink: original, newLink: shortLink, clicks: 0 }
+    const data = { oldLink: original, newLink: shortLink }
     if (req.session.userInfo) data.user = req.session.userInfo.id
 
     await Url.create(data)
@@ -68,9 +84,10 @@ app.post("/shorten", async (req, res) => {
     const fullUrl = getFullUrl(req, shortLink)
 
     if (req.session.userInfo) {
+        req.session.error = null;
         return res.redirect("/dashboard")
     }
-    return res.render("home.ejs", { fullUrl })
+    return res.render("home.ejs", {fullUrl: fullUrl, error: null })
 });
 
 
@@ -95,11 +112,13 @@ app.get("/dashboard", async (req, res) => {
     if (!req.session.userInfo) return res.redirect("/login");
 
     const urls = await Url.find({ user: req.session.userInfo.id });
-
+    const error = req.session.error
+    req.session.error = null
     res.render("dashboard.ejs", {
         userEmail: req.session.userInfo.email,
         urls,
-        host: `${req.protocol}://${req.get("host")}` 
+        host: `${req.protocol}://${req.get("host")}` ,
+        error: error
     });
 });
 app.get("/delete/link/:link", async (req, res) => {

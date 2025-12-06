@@ -21,6 +21,14 @@
     <div class="flex-1 flex items-center justify-center">
         <div class="w-full max-w-md p-6 bg-white rounded-2xl shadow-lg">
             <h1 class="text-3xl font-bold text-center mb-6">Dashboard</h1>
+                <% if (locals.error) { %>
+                    <div role="alert" class="alert alert-error flex items-center gap-2 mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 shrink-0 stroke-current" fill="none" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        <span><%=error%></span>
+                    </div>
+                <% } %>
             <!-- Form -->
             <form action="/shorten" method="POST" class="flex gap-2 mb-4">
                 <input type="text" class="input input-bordered flex-1" placeholder="Type your link here" name="txtLink" required/>
