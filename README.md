@@ -19,7 +19,7 @@ Live demo: [https://shrturl01.vercel.app](https://shrturl01.vercel.app)
 | Simple, Responsive UI | Clean design using TailwindCSS + DaisyUI |
 | Optional Simple User | User can “log in” with email only; **no password is required** for simplicity |
 | Protected Routes | Certain routes accessible only to logged-in users |
-| Delete Links | Ability to remove short links |
+| Delete Links | Ability to remove short links for logged in users |
 
 ---
 
